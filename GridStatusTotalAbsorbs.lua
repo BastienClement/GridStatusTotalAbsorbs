@@ -28,16 +28,16 @@ GridStatusTotalAbsorbs = GridStatus:NewModule("GridStatusTotalAbsorbs")
 
 GridStatusTotalAbsorbs.defaultDB = {
 	unit_total_absorbs = {
-		color    = { r = 0.7, g = 0.7, b = 1.0, a = 1.0 },
-		text     = "Total Absorbs",
-		enable   = true,
+		color = { r = 0.7, g = 0.7, b = 1.0, a = 1.0 },
+		text = "Total Absorbs",
+		enable = true,
 		priority = 30,
-		range    = false
+		range = false
 	}
 }
 
 GridStatusTotalAbsorbs.menuName = "Total Absorbs"
-GridStatusTotalAbsorbs.options  = false
+GridStatusTotalAbsorbs.options = false
 
 local settings
 
@@ -48,21 +48,21 @@ function GridStatusTotalAbsorbs:OnInitialize()
 end
 
 function GridStatusTotalAbsorbs:OnStatusEnable(status)
-    if status == "unit_total_absorbs" then
-        self:RegisterEvent("UNIT_MAXHEALTH", "UpdateUnit")
-        self:RegisterEvent("UNIT_ABSORB_AMOUNT_CHANGED", "UpdateUnit")
-        self:UpdateAllUnits()
-    end
+	if status == "unit_total_absorbs" then
+		self:RegisterEvent("UNIT_MAXHEALTH", "UpdateUnit")
+		self:RegisterEvent("UNIT_ABSORB_AMOUNT_CHANGED", "UpdateUnit")
+		self:UpdateAllUnits()
+	end
 end
 
 function GridStatusTotalAbsorbs:OnStatusDisable(status)
-    if status == "unit_total_absorbs" then
-        for guid, unitid in GridRoster:IterateRoster() do
-            self.core:SendStatusLost(guid, "unit_total_absorbs")
-        end
+	if status == "unit_total_absorbs" then
+		for guid, unitid in GridRoster:IterateRoster() do
+			self.core:SendStatusLost(guid, "unit_total_absorbs")
+		end
 		self:UnregisterEvent("UNIT_MAXHEALTH", "UpdateUnit")
-        self:UnregisterEvent("UNIT_ABSORB_AMOUNT_CHANGED", "UpdateUnit")
-    end
+		self:UnregisterEvent("UNIT_ABSORB_AMOUNT_CHANGED", "UpdateUnit")
+	end
 end
 
 function GridStatusTotalAbsorbs:Reset()
@@ -77,7 +77,7 @@ function GridStatusTotalAbsorbs:UpdateAllUnits()
 end
 
 function GridStatusTotalAbsorbs:UpdateUnit(_, unitid)
-    self:UpdateUnitAbsorbs(unitid)
+	self:UpdateUnitAbsorbs(unitid)
 end
 
 function GridStatusTotalAbsorbs:UpdateUnitAbsorbs(unitid)
