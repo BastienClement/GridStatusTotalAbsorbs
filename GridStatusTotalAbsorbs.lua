@@ -39,28 +39,11 @@ GridStatusTotalAbsorbs.defaultDB = {
 GridStatusTotalAbsorbs.menuName = "Total Absorbs"
 GridStatusTotalAbsorbs.options  = false
 
-local totalabsorbs_options = {
-	["Color"] = {
-		type = "color",
-		name = "Color",
-		desc = "Color for the absorbs bar",
-		hasAlpha = true,
-		get = function()
-			local s = GridStatusTotalAbsorbs.db.profile.unit_total_absorbs.color
-			return s.r, s.g, s.b, s.a
-		end,
-		set = function(_, r,g,b,a)
-			local s = GridStatusTotalAbsorbs.db.profile.unit_total_absorbs.color
-			s.r, s.g, s.b, s.a = r, g, b, a
-            GridStatusTotalAbsorbs:UpdateAllUnits()
-		end
-}
-
 local settings
 
 function GridStatusTotalAbsorbs:OnInitialize()
 	self.super.OnInitialize(self)
-	self:RegisterStatus("unit_total_absorbs", "Total Absorbs", totalabsorbs_options, true)
+	self:RegisterStatus("unit_total_absorbs", "Total Absorbs", nil, true)
 	settings = self.db.profile.unit_total_absorbs
 end
 
