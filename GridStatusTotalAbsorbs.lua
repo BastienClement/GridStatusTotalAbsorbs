@@ -75,29 +75,26 @@ function GridStatusTotalAbsorbs:UpdateAllUnits()
 end
 
 function GridStatusTotalAbsorbs:UpdateUnit(_, unitid)
-    local unitGUID = UnitGUID(unitid)
     self:UpdateUnitAbsorbs(unitid)
 end
 
 function GridStatusTotalAbsorbs:UpdateUnitAbsorbs(unitid)
-	unitid = UnitGUID(unitid)
-
 	local abs, max = UnitGetTotalAbsorbs(unitid), UnitHealthMax(unitid)
-	local priority = settings.priority
+	local guid = UnitGUID(unitid)
 
 	if abs == 0 then
-		priority = 1
+		self.core:SendStatusLost(guid, "unit_total_absorbs")
+	else
+		self.core:SendStatusGained(
+			guid,
+			"unit_total_absorbs",
+			settings.priority,
+			nil,
+			settings.color,
+			(abs > 0 and tostring(abs) or nil),
+			abs,
+			max,
+			nil
+		)
 	end
-
-	self.core:SendStatusGained(
-        unitGUID,
-        "unit_total_absorbs",
-        priority,
-        nil,
-		settings.color,
-        (abs > 0 and tostring(abs) or nil),
-        abs,
-        max,
-        nil
-    )
 end
