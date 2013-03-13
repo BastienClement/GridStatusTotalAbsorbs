@@ -1,8 +1,6 @@
 ## Interface: 50200
 ## Title: GridStatusTotalAbsorbs
 ## Notes: Indicator for the new absorbs-bar since 5.2
-## Author: Galedric
-## Version: 1.0
 ## Dependencies: Grid
 
 GridStatusTotalAbsorbs.lua
