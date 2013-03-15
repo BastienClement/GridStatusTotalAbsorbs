@@ -24,7 +24,7 @@
 local GridRoster = Grid:GetModule("GridRoster")
 local GridStatus = Grid:GetModule("GridStatus")
 
-GridStatusTotalAbsorbs = GridStatus:NewModule("GridStatusTotalAbsorbs")
+local GridStatusTotalAbsorbs = GridStatus:NewModule("GridStatusTotalAbsorbs")
 
 GridStatusTotalAbsorbs.defaultDB = {
 	unit_total_absorbs = {
