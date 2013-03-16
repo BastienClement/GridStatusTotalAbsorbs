@@ -49,6 +49,7 @@ end
 
 function GridStatusTotalAbsorbs:OnStatusEnable(status)
 	if status == "unit_total_absorbs" then
+		self:RegisterMessage("Grid_RosterUpdated")
 		self:RegisterEvent("UNIT_MAXHEALTH", "UpdateUnit")
 		self:RegisterEvent("UNIT_ABSORB_AMOUNT_CHANGED", "UpdateUnit")
 		self:UpdateAllUnits()
@@ -60,6 +61,7 @@ function GridStatusTotalAbsorbs:OnStatusDisable(status)
 		for guid, unitid in GridRoster:IterateRoster() do
 			self.core:SendStatusLost(guid, "unit_total_absorbs")
 		end
+		self:UnregisterMessage("Grid_RosterUpdated")
 		self:UnregisterEvent("UNIT_MAXHEALTH", "UpdateUnit")
 		self:UnregisterEvent("UNIT_ABSORB_AMOUNT_CHANGED", "UpdateUnit")
 	end
@@ -74,6 +76,10 @@ function GridStatusTotalAbsorbs:UpdateAllUnits()
 	for guid, unitid in GridRoster:IterateRoster() do
 		self:UpdateUnitAbsorbs(unitid)
 	end
+end
+
+function GridStatusTotalAbsorbs:Grid_RosterUpdated()
+	self:UpdateAllUnits()
 end
 
 function GridStatusTotalAbsorbs:UpdateUnit(_, unitid)
