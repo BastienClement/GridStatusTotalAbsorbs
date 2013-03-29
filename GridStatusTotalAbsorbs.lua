@@ -32,7 +32,8 @@ GridStatusTotalAbsorbs.defaultDB = {
 		text = "Total Absorbs",
 		enable = true,
 		priority = 30,
-		range = false
+		range = false,
+		shortText = true
 	}
 }
 
@@ -41,9 +42,25 @@ GridStatusTotalAbsorbs.options = false
 
 local settings
 
+local TotalAbsorbs_options = {
+	["shortText"] = {
+		type = "toggle",
+		name = "Short text",
+		desc = "Displays 12500 as 12.5k",
+		order = 91,
+		get = function()
+			return settings.shortText
+		end,
+		set = function(_, v)
+			settings.shortText = v
+			GridStatusTotalAbsorbs:UpdateAllUnits()
+		end,
+	}
+}
+
 function GridStatusTotalAbsorbs:OnInitialize()
 	self.super.OnInitialize(self)
-	self:RegisterStatus("unit_total_absorbs", "Total Absorbs", nil, true)
+	self:RegisterStatus("unit_total_absorbs", "Total Absorbs", TotalAbsorbs_options, true)
 	settings = self.db.profile.unit_total_absorbs
 end
 
@@ -99,7 +116,7 @@ function GridStatusTotalAbsorbs:UpdateUnitAbsorbs(unitid)
 			settings.priority,
 			nil,
 			settings.color,
-			(abs > 0 and tostring(abs) or nil),
+			(abs > 999 and settings.shortText) and string.format("%.1fk", abs / 1000) or tostring(abs),
 			abs,
 			max,
 			nil
