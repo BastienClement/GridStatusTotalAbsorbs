@@ -1,4 +1,4 @@
-## Interface: 50300
+## Interface: 50400
 ## Title: GridStatusTotalAbsorbs
 ## Notes: Indicator for the new absorbs-bar since 5.2
 ## Dependencies: Grid
